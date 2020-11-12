@@ -1,0 +1,84 @@
+{% extends "question/base.html" %}
+{% load question_extras %}
+{% block content %}
+<div class="container-lg question-single-container">
+    <div class="row">
+        <div class="col-md-10 col-lg-9">
+            <h3 class="font-weight-light text-center">{{ question.header }}</h3>
+            <div class="row question-single-content">
+                <div class="col-sm-1 d-flex flex-row flex-sm-column justify-content-center justify-content-sm-start rating ">
+                    <div class="text-center rating-button">
+                        <a href="#"><i class="fas fa-chevron-up"></i></a>
+                    </div>
+                    <div class="text-center rating-count">
+                        <span>{{ question.votes.count }}</span>
+                    </div>
+                    <div class="rating-button text-center">
+                        <a href="#"><i class="fas fa-chevron-down"></i></a>
+                    </div>
+                </div>
+                <div class="col-sm-11 question-single">
+                    <p>{{ question.content }}</p>
+                    <div class="d-flex justify-content-between question-info">
+                        <div>задан {{ question|creation_time_str }}</div>
+                        <div><a href="#">{{ question.author }}</a></div>
+                    </div>
+                    {% include 'include/queston_tags.html' %}
+                    <div class="row justify-content-end">
+                        <div class="col-11 comments">
+                            {% for comment in question.comments.all %}
+                            <div class="py-1 clearfix comment">
+                                <span>{{ comment.content }}</span>
+                                <span class="d-inline-block float-right pr-3 comment-info"><a href="#">{{ comment.author }}</a> {{ comment|creation_time_str }}</span>
+                            </div>
+                            {% endfor %}
+                            <div class="add-comment">
+                                <a href="#">добавить комментарий</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h5 class="answers-header">{{ question.answer_set.count }} {{ question.answer_set.count | ru_plural:'ответ, ответа, ответов' }}</h5>
+            {% for answ in question.answer_set.all %}
+            <div class="row question-single-content">
+                <div class="col-sm-1 d-flex flex-row flex-sm-column justify-content-center justify-content-sm-start rating ">
+                    <div class="text-center rating-button">
+                        <a href="#"><i class="fas fa-chevron-up"></i></a>
+                    </div>
+                    <div class="text-center rating-count">
+                        <span>{{ answ.votes.count }}</span>
+                    </div>
+                    <div class="rating-button text-center">
+                        <a href="#"><i class="fas fa-chevron-down"></i></a>
+                    </div>
+                </div>
+                <div class="col-sm-11 question-single">
+                    <p>{{ answ.content }}</p>
+                    <div class="d-flex justify-content-between question-info">
+                        <div>ответ дан {{ answ|creation_time_str }}</div>
+                        <div><a href="#">jfs</a></div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-11 comments">
+                            {% for comment in answ.comments.all %}
+                            <div class="py-1 clearfix comment">
+                                <span>{{ comment.content }}</span>
+                                <span class="d-inline-block float-right pr-3 comment-info"><a href="#">{{ comment.author }}</a> {{ comment|creation_time_str }}</span>
+                            </div>
+                            {%  endfor %}
+                            <div class="add-comment">
+                                <a href="#">добавить комментарий</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% block right_column %}
+        {% include 'include/tags_column.html' %}
+        {% endblock right_column %}
+    </div>
+</div>
+{% endblock content %}

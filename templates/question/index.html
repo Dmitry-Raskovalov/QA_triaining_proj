@@ -1,0 +1,45 @@
+{% extends "question/base.html" %}
+{% load question_extras %}
+{% block content %}
+<div class="container-lg question-container">
+    <div class="row">
+        <div class="col-md-10 col-lg-9 question-content">
+            <div class="row justify-content-sm-end">
+                <div class="col col-sm-10 pl-4 pl-sm-1 mb-2">
+                    <h3 class="mb-1">Актуальные вопросы:</h3>
+                    <small class="text-muted ml-3">всего на сайте {{ paginator.count }} {{ paginator.count|ru_plural:'вопрос, вопроса, вопросов' }}</small>
+                </div>
+            </div>
+            {% for question in newest_question %}
+            <div class="row question py-1 p-sm-3 pt-sm-3">
+                <div class="d-flex col-sm-2 text-center justify-content-center justify-content-sm-start p-0 mb-sm-0 stats-index">
+                    <div class="d-flex flex-sm-column pr-2 ml-n1 ml-sm-n3 ml-md-n3 mr-2 mr-sm-0 stats-rate">
+                        <div class="stats-count mr-1 mr-sm-0">{{ question.votes.count }}</div>
+                        <div class="stats-label mr-1 mr-sm-0 my-auto">{{ question.votes.count|ru_plural:'голос, голоса, голосов' }}</div>
+                    </div>
+                    <div class="d-flex flex-sm-column stats-rate px-2 pt-sm-0 pb-sm-1 answered ">
+                        <div class="stats-count mr-1 mr-sm-0">{{ question.answer_set.count }}</div>
+                        <div class="stats-label mr-1 mr-sm-0 my-auto">{{ question.answer_set.count|ru_plural:'ответ, ответа, ответов' }}</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <h4 class="font-weight-light">
+                        <a href="{{ question.get_absolute_url }}">
+                            {{ question.header|truncatewords:16 }}
+                        </a>
+                    </h4>
+                    <div class="d-flex justify-content-between question-info">
+                        {% include 'include/queston_tags.html' %}
+                        <div class="p-1">задан {{ question|creation_time_str }}</div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% include 'include/pagination.html' %}
+        </div>
+        {% block right_column %}
+            {% include 'include/tags_column.html' %}
+        {% endblock right_column %}
+    </div>
+</div>
+{% endblock content %}

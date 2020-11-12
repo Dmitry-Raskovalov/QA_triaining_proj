@@ -1,0 +1,119 @@
+{% extends "question/base.html" %}
+{% load question_extras %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="container-lg question-single-container">
+    <div class="row">
+        <div class="row justify-content-sm-center">
+            <div class="col col-sm-10 p-4 p-sm-1 mb-2">
+                <h3 class="mb-1">Задайте публичный вопрос</h3>
+                <p class="text-muted ml-3">
+                    Задавая вопрос постарайтесь точно описать проблему что бы у других участникам была возможность вам ответить сразу, без уточняющих вопросов.
+                </p>
+{#                <form action=""></form>#}
+                <form method="POST">
+                    {% for e in form.non_field_errors %}
+                        <div class="alert alert-danger">{{ e }}</div>
+                    {% endfor %}
+                    {% csrf_token %}
+                    {%  if form.is_bound %}
+                        <fieldset>
+                            {% for field in form %}
+{#                                {% if field.errors%}#}
+{#                                    {% for error in field.errors %}#}
+{#                                        <div class="alert alert-danger">#}
+{#                                            {{error}}#}
+{#                                        </div>#}
+{#                                    {% endfor %}#}
+{#                                {% endif %}#}
+                                <div class="form-group">
+                                    {{ field.label }}
+                                    {% if field.errors %}
+                                        {% render_field field class="form-control is-invalid" %}
+                                        {% for error in field.errors %}
+                                            <div class="invalid-feedback">
+                                                {{error}}
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% render_field field class="form-control is-valid" %}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                            {% for f in formset %}
+                                {{ f.as_p }}
+                            {% endfor %}
+                        </fieldset>
+                    {% else %}
+                        <fieldset>
+                            {% for field in form %}
+                                <div class="form-group">
+                                    {{ field.label }}
+                                    {% render_field field class="form-control" %}
+                                </div>
+                           {% endfor %}
+                        </fieldset>
+                    {% endif %}
+{#                    <div class="form-actions">#}
+                    <button type="submit" class="save btn btn-primary">Сохранить</button>
+{#                    </div>#}
+                </form>
+{#                <form method="POST">#}
+{#                    {% csrf_token %}#}
+{#                     {% for field in form %}#}
+{#                         <div class="form-group">#}
+{#                            {{field.label_tag}}#}
+{#                           <div class="form-control">{{field}}</div>#}
+{#                            {% if field.errors%}#}
+{#                                {% for error in field.errors %}#}
+{#                                    <div class="alert alert-danger">#}
+{#                                        {{error}}#}
+{#                                    </div>#}
+{#                                {% endfor %}#}
+{#                            {% endif %}#}
+{#                        </div>#}
+{#                     {% endfor %}#}
+{#                    <div class="form-group">#}
+{#                        {{ form.subject.errors }}#}
+{#                        {{ form.subject.label_tag }}#}
+{#                        {{ form.subject }}#}
+{#                    </div>#}
+                    {#                    {{ form.as_p }}#}
+{#                    <button type="submit" class="save btn btn-default">Save</button>#}
+{#                 </form>#}
+
+{#                <form method="POST" class="post-form">{% csrf_token %}#}
+{#                    {% endfor %}#}
+{#                </form>#}
+{#                <form>#}
+{#                    <div class="form-group">#}
+{#                    <label for="exampleFormControlSelect1">Example select</label>#}
+{#                        <select class="form-control" id="exampleFormControlSelect1">#}
+{#                          <option>1</option>#}
+{#                          <option>2</option>#}
+{#                          <option>3</option>#}
+{#                          <option>4</option>#}
+{#                          <option>5</option>#}
+{#                        </select>#}
+{#                    </div>#}
+{#                    <div class="form-group">#}
+{#                    <label for="exampleInputEmail1">Email address</label>#}
+{#                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">#}
+{#                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>#}
+{#                  </div>#}
+{#                  <div class="form-group">#}
+{#                    <label for="exampleInputPassword1">Password</label>#}
+{#                    <input type="password" class="form-control" id="exampleInputPassword1">#}
+{#                  </div>#}
+{#                  <div class="form-group form-check">#}
+{#                    <input type="checkbox" class="form-check-input" id="exampleCheck1">#}
+{#                    <label class="form-check-label" for="exampleCheck1">Check me out</label>#}
+{#                  </div>#}
+{#                  <button type="submit" class="btn btn-primary">Submit</button>#}
+{#                </form>#}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+

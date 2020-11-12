@@ -1,0 +1,22 @@
+{% extends "question/base.html" %}
+{% load question_extras %}
+{% block content %}
+    <div class="container-lg question-container">
+        <div class="row">
+            <div class="col-md-10 col-lg-9 question-content">
+                <div class="row justify-content-sm-end">
+                    <div class="col col-sm-10 pl-4 pl-sm-1 mb-2">
+                        <h3 class="mb-2">Вопросы с меткой [{{ tag }}]</h3>
+                        <p class="text-muted ml-3">{{ tag.description }}</p>
+                        <p>найдено {{ paginator.count }} {{ paginator.count|ru_plural:'вопрос, вопроса, вопросов' }}</p>
+                    </div>
+                </div>
+                {% include 'include/search_result.html' %}
+                {% include 'include/pagination.html' %}
+            </div>
+        {% block right_column %}
+        {% include 'include/tags_column.html' %}
+        {% endblock right_column %}
+        </div>
+    </div>
+{% endblock content %}

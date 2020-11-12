@@ -1,0 +1,38 @@
+{% extends "question/base.html" %}
+{% load question_extras %}
+{% block content %}
+    <div class="container-lg question-container">
+        <div class="row">
+            <div class="row justify-content-sm-center">
+                <div class="col col-sm-10 p-4 p-sm-1 mb-2">
+                    <h3 class="mb-1">Метки</h3>
+                    <p class="text-muted ml-3">Метка — это ключевое слово, позволяющее отнести ваш вопрос в одну
+                        категорию с другими похожими вопросами.
+                        Благодаря подбору правильных меток другие участники смогут проще найти ваш вопрос и быстрее дать
+                        на него ответ. </p>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+            {% for tag in page_obj %}
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="{{ tag.get_absolute_url }}">
+                                    {{ tag.name }}
+                                </a>
+                            </h4>
+                            <p class="card-text">{{ tag.description|truncatechars:170 }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">{{ tag.question_tags.count }} {{ tag.question_tags.count|ru_plural:'вопрос,вопроса,вопросов' }}</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% include 'include/pagination.html' %}
+    </div>
+{% endblock content %}
+

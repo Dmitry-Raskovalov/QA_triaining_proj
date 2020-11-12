@@ -1,0 +1,35 @@
+{% if is_paginated %}
+    <div class="col">
+        <ul class="pagination justify-content-center" id="paginator">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?{{ q_str }}page={{ page_obj.previous_page_number }}"><<</a></li>
+                {% if page_obj.number|add:'-3' > 1 %}
+                    <li class="page-item"><a class="page-link" href="?{{ q_str }}page=1">1</a></li>
+                {% endif %}
+                {% if page_obj.number|add:'-4' > 1 %}
+                    <li class="page-item"><a class="page-link" href="?{{ q_str }}page={{ page_obj.number|add:'-4'}}">...</a></li>
+                {% endif %}
+            {% else %}
+                <li class="page-item disabled"><a class="page-link" href="#"><<</a></li>
+            {% endif %}
+            {% for i in paginator.page_range %}
+                {% if page_obj.number == i %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
+                {% elif page_obj.number|add:'-4' < i and page_obj.number|add:'4' > i %}
+                    <li class="page-item"><a class="page-link" href="?{{ q_str }}page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                {% if page_obj.number|add:'4' < page_obj.paginator.num_pages %}
+                    <li class="page-item"><a class="page-link" href="?{{ q_str }}page={{ page_obj.number|add:'4'}}">...</a></li>
+                {% endif %}
+                {% if page_obj.number|add:'3' < page_obj.paginator.num_pages %}
+                    <li class="page-item"><a class="page-link" href="?{{ q_str }}page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link" href="?{{ q_str }}page={{ page_obj.next_page_number }}">>></a></li>
+            {% else %}
+                <li class="page-item disabled"><a class="page-link" href="#">>></a></li>
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}

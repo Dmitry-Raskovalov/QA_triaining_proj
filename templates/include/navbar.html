@@ -1,0 +1,32 @@
+<header>
+    <nav class="navbar navbar-expand-md fixed-top">
+        <a class="navbar-brand" href="/">Q&A.com</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon">
+                <i class="fas fa-bars"></i>
+            </span>
+        </button>
+        <div class="collapse navbar-collapse " id="collapsibleNavbar">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'tags_index' %}">Метки</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Участники</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'ask_question' %}"><strong>Задать вопрос</strong></a>
+                </li>
+            </ul>
+            <form class="form-inline my-1 my-lg-0" action="{% url 'search' %}" method="get">
+                 <input class="form-control mr-3 search-form" type="search" name="q" placeholder="Search" aria-label="Search">
+            </form>
+            <form class="form-inline" action="{# registration.html #}" target="_blank">
+                <button class="btn btn-sm my-2 mr-2 my-md-0 reg-btn">Регистрация</button>
+            </form>
+            <form class="form-inline" action="{# enter.html #}" target="_blank">
+                <button class="btn btn-sm my-2 my-md-0 enter-btn">Вход</button>
+            </form>
+        </div>
+    </nav>
+</header>

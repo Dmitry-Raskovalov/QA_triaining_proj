@@ -1,0 +1,8 @@
+<div class="col-md-2 col-lg-3 tags-col">
+    <h3 class="text-center text-sm-left">Метки</h3>
+    <div class="col tags">
+        {% for tag in popular_tags %}
+            <a href="/tag/{{ tag.url }}" class="btn btn-outline btn-md" role="button">{{ tag.name }}</a>
+        {% endfor %}
+    </div>
+</div>

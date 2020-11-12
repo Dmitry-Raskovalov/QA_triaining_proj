@@ -1,0 +1,5 @@
+ <div class="q-tags">
+    {% for tag in question.tags.all %}
+        <a href="/tag/{{ tag.url }}" class="badge badge-pill badge-light" >{{ tag }} </a>
+    {% endfor %}
+</div>
